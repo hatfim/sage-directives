@@ -203,7 +203,7 @@ return [
 
     /*
     |---------------------------------------------------------------------
-    | @author / @authorurl / @published / @modified
+    | @author / @authorurl / @published / @modified / @readingtime
     |---------------------------------------------------------------------
     */
 
@@ -247,6 +247,15 @@ return [
         return "<?= get_the_modified_date(); ?>";
     },
 
+    'readingtime' => function () {
+        $word = str_word_count(strip_tags( get_the_content() ));
+        $m = floor($word / 200);
+        $s = floor($word % 200 / (200 / 60));
+        $est = ($m > 0 ? $m . ' Mins, ' : '')  . $s . ' Sec' . ($s == 1 ? '' : 's') . ' reading';
+
+        return $est;
+    },
+    
     /*
     |---------------------------------------------------------------------
     | @category / @categories / @term / @terms
